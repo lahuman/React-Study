@@ -16,5 +16,5 @@ export const getPosts = async () => {
 
 export const getPostById = async (id) => {
   await sleep(500);
-  return fosts.find((post) => post.id === id);
+  return posts.find((post) => post.id === id);
 };
