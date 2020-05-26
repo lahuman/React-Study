@@ -1,21 +1,39 @@
+import {
+  delay,
+  put,
+  takeEvery,
+  takeLatest,
+  takeLeading,
+} from "redux-saga/effects";
 const INCREASE = "INCREASE";
 const DECREASE = "DECREASE";
+const INCREASE_ASYNC = "INCREASE_ASYNC ";
+const DECREASE_ASYNC = "DECREASE_ASYNC ";
 
 export const increase = () => ({ type: INCREASE });
 export const decrease = () => ({ type: DECREASE });
+export const increaseAsync = () => ({ type: INCREASE_ASYNC });
+export const decreaseAsync = () => ({ type: DECREASE_ASYNC });
 
+function* increaseSaga() {
+  yield delay(1000);
+  yield put(increase());
+}
+
+function* decreaseSaga() {
+  yield delay(1000);
+  yield put(decrease());
+}
+
+export function* counterSaga() {
+  yield takeEvery(INCREASE_ASYNC, increaseSaga);
+  // 마지막 한개만 동작
+  // yield takeLatest(DECREASE_ASYNC, decreaseSaga);
+  // 처음 하나 동작후 다음 동작 받음
+  yield takeLeading(DECREASE_ASYNC, decreaseSaga);
+}
 const initalState = 0;
 
-export const increaseAsync = () => (dispatch, state) => {
-  setTimeout(() => {
-    dispatch(increase());
-  }, 1000);
-};
-export const decreaseAsync = () => (dispatch, state) => {
-  setTimeout(() => {
-    dispatch(decrease());
-  }, 1000);
-};
 export default (state = initalState, action) => {
   switch (action.type) {
     case INCREASE:
