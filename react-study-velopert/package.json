@@ -10,7 +10,7 @@
     "classnames": "^2.2.6",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",
-    "immer": "^6.0.3",
+    "immer": "^8.0.1",
     "node-sass": "^4.13.1",
     "polished": "^3.5.1",
     "react": "^16.13.1",
